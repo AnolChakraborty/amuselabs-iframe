@@ -54,18 +54,15 @@
 
         #hamburger {
             display: none;
-            /* Hidden by default */
             cursor: pointer;
         }
 
         #menu-sm {
             display: none;
-            /* Initially hidden */
         }
 
         #menu-lg {
             display: flex;
-            /* Visible by default */
         }
 
         @media (max-width: 810px) {
@@ -108,11 +105,17 @@
                 document.getElementById('amuselabs-iframe').height = parseInt(e.data.height + 40)
             }
 
-            let puzzleName = JSON.parse(e.data)['puzzleType']
-            if (typeof (e.data) === "string" && puzzleName) {
-                console.log("Puzzle Type : " + puzzleName)
-                document.getElementById('puzzleType-lg').innerHTML = "<h6><strong>Puzzle Type:</strong> <i>" + String(puzzleName).charAt(0).toUpperCase() + String(puzzleName).slice(1) + "</i></h6>";
-                document.getElementById('puzzleType-sm').innerHTML = "<h6><strong>Puzzle Type:</strong> <i>" + String(puzzleName).charAt(0).toUpperCase() + String(puzzleName).slice(1) + "</i></h6>";
+            try {
+                if (typeof (e.data) === "string") {
+                    let puzzleName = JSON.parse(e.data)['puzzleType']
+                    if (puzzleName) {
+                        console.log("Puzzle Type : " + puzzleName)
+                        document.getElementById('puzzleType-lg').innerHTML = "<h6><strong>Puzzle Type:</strong> <i>" + String(puzzleName).charAt(0).toUpperCase() + String(puzzleName).slice(1) + "</i></h6>";
+                        document.getElementById('puzzleType-sm').innerHTML = "<h6><strong>Puzzle Type:</strong> <i>" + String(puzzleName).charAt(0).toUpperCase() + String(puzzleName).slice(1) + "</i></h6>";
+                    }
+                }
+            } catch (err) {
+                console.warn("EXCEPTION OCCURED - Error while parsing iframe message : " + err)
             }
 
         }, false);
@@ -143,7 +146,6 @@
                 }
             }
 
-            // Check on page load and on resize
             updateMenuDisplay();
             window.addEventListener("resize", updateMenuDisplay);
         });
@@ -159,7 +161,8 @@
         <div class="container-fluid">
 
             <a class="navbar-brand pl-5" href="picdoku.html">
-                <img src="https://i.ibb.co/V0RsQzJ8/nav-logo.png" alt="Logo" width="150" class="d-inline-block align-text-top">
+                <img src="https://i.ibb.co/V0RsQzJ8/nav-logo.png" alt="Logo" width="150"
+                    class="d-inline-block align-text-top">
             </a>
 
             <span class="text-centered" style="margin-bottom: -10px;margin-right:12px" id="puzzleType-lg"></span>
@@ -184,9 +187,10 @@
                 </li>
 
                 <li class="nav-item pl-5">
-                    <button class="btn btn-warning me-2" type="button" onclick="window.open('https:/\/github.com/AnolChakraborty/amuselabs-iframe', '_blank')">
-                        <img src="https://i.ibb.co/tP2w24Gg/github-logo.png" alt="Logo" height="30" class="d-inline-block align-text-top"
-                            style="margin-top: -5px">
+                    <button class="btn btn-warning me-2" type="button"
+                        onclick="window.open('https:/\/github.com/AnolChakraborty/amuselabs-iframe', '_blank')">
+                        <img src="https://i.ibb.co/tP2w24Gg/github-logo.png" alt="Logo" height="30"
+                            class="d-inline-block align-text-top" style="margin-top: -5px">
                         View Source
                     </button>
                 </li>
@@ -212,9 +216,10 @@
                 </li>
 
                 <li class="nav-item" style="margin-top:10px">
-                    <button class="btn btn-warning me-2" type="button" onclick="window.open('https:/\/github.com/AnolChakraborty/amuselabs-iframe', '_blank')">
-                        <img src="https://i.ibb.co/tP2w24Gg/github-logo.png" alt="Logo" height="30" class="d-inline-block align-text-top"
-                            style="margin-top: -5px">
+                    <button class="btn btn-warning me-2" type="button"
+                        onclick="window.open('https:/\/github.com/AnolChakraborty/amuselabs-iframe', '_blank')">
+                        <img src="https://i.ibb.co/tP2w24Gg/github-logo.png" alt="Logo" height="30"
+                            class="d-inline-block align-text-top" style="margin-top: -5px">
                         View Source
                     </button>
                 </li>
